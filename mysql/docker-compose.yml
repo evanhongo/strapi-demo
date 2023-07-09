@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  db:
+    image: mysql:8
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
+    env_file:
+      - ./.env
+    ports:
+      - 3306:3306
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      - PMA_HOST=db
+      - UPLOAD_LIMIT=8192M
+    ports:
+      - "8181:80"
+
+volumes:
+  mysql_data: {}
